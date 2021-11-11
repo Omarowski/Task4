@@ -1,38 +1,40 @@
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class PersonDatabase {
+  private List<Person> people;
+  FirstNameComparator firstNameComparator = new FirstNameComparator();
+  BirthdateComparator birthdateComparator = new BirthdateComparator();
 
+  public PersonDatabase(List<Person> people) {
+    this.people = people;
+  }
 
+  public List<Person> sortedByFirstName() {
+    Collections.sort(people, firstNameComparator);
+    return people; // external rule for ordering (based on Comparator --- FirstNameComparator)
+  }
 
+  public List<Person> sortedBySurnameFirstNameAndBirthdate() {
+    Collections.sort(people);
+    return people; // natural order (Comparable)
+  }
 
-    public List<Person> sortedByFirstName() {
+  public List<Person> sortedByBirthdate() {
+    Collections.sort(people, birthdateComparator);
 
+    return people;
+  }
 
-        return null; // external rule for ordering (based on Comparator --- FirstNameComparator)
-    }
+  public static List<Person> bornOnDay(Date date) {
+    List<Person> people = new ArrayList<>();
+    Map<Integer,Person> list = new HashMap<>();
+    people.forEach(e-> list.put(e.getIndex(), e));
 
-    public List<Person> sortedBySurnameFirstNameAndBirthdate() {
-
-        return null; // natural order (Comparable)
-    }
-
-    public List<Person> sortedByBirthdate() {
-
-
-        return null; // external rule for ordering (based on Comparator --- BirthdateComparator)
-    }
-
-    public static List<Person> bornOnDay(Date date) {
-        List<Person> people = new ArrayList<>();
-        return people
-                .stream()
-                .filter(p -> p.getBirthdate().equals(date))
-                .collect(Collectors.toList());
-
-    }
+    return list.entrySet()
+            .stream()
+            .filter(p -> p.getValue().getBirthdate().equals(date))
+            .map(Map.Entry::getValue)
+            .collect(Collectors.toList());
+  }
 }
