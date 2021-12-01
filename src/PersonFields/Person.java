@@ -1,3 +1,9 @@
+package PersonFields;
+
+import Assignment08_Classes.Assignment08Exception;
+
+import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Person implements Comparable<Person> {
@@ -28,6 +34,18 @@ public class Person implements Comparable<Person> {
     this.birthdate = birthdate;
   }
 
+  // assignment 8
+  public void serialize(DataOutputStream output) throws Assignment08Exception, IOException {
+    // serialize birth date with getTime() method
+    // encapsulate IOException in Assignment08Exception
+
+
+
+
+
+  }
+
+
   public String getFirstName() {
     return firstName;
   }
@@ -42,16 +60,13 @@ public class Person implements Comparable<Person> {
 
   @Override
   public String toString() {
-    return "Person{"
-        + "firstName='"
-        + firstName
-        + '\''
-        + ", surname='"
-        + surname
-        + '\''
-        + ", birthdate="
-        + birthdate
-        + '}';
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    return firstName
+            + " "
+            + surname
+            + " "
+            +formatter.format(birthdate)
+            + ";";
   }
 
   @Override
@@ -65,7 +80,6 @@ public class Person implements Comparable<Person> {
             firstName.compareTo(otherPerson.getFirstName())+
             birthdate.compareTo(otherPerson.getBirthdate());
   }
-
 
   public static int compare(int x, int y) {
     return (x < y) ? 1 : ((x == y) ? 0 : 1);

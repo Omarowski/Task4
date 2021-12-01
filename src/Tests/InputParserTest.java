@@ -1,3 +1,8 @@
+package Tests;
+
+import PersonFields.InputParser;
+import PersonFields.Person;
+import PersonFields.PersonDatabase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +21,10 @@ class InputParserTest {
     String file = "src/output.txt";
     input = new FileReader(file);
     List<Person> people = InputParser.readFromInputStream(input);
-     people.forEach(
-        e ->
-            System.out.println(
-                e.getFirstName() + e.getSurname() + formatter.format(e.getBirthdate())));
+    people.forEach(
+            e ->
+                    System.out.println(
+                            e.getFirstName() + e.getSurname() + formatter.format(e.getBirthdate())));
   }
 
   @Test
@@ -27,11 +32,11 @@ class InputParserTest {
     String file = "src/wrongDateFormat.txt";
     input = new FileReader(file);
     Exception exception =
-        Assertions.assertThrows(
-            Exception.class,
-            () -> {
-              InputParser.readFromInputStream(input);
-            });
+            Assertions.assertThrows(
+                    Exception.class,
+                    () -> {
+                      InputParser.readFromInputStream(input);
+                    });
     Assertions.assertEquals("Wrong Format line", exception.getMessage());
   }
 
