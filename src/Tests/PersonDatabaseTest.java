@@ -1,6 +1,5 @@
 package Tests;
 
-import Assignment08_Classes.Assignment08Exception;
 import PersonFields.InputParser;
 import PersonFields.Person;
 import PersonFields.PersonDatabase;
@@ -28,30 +27,7 @@ class PersonDatabaseTest {
 
     }
 
-    @Test
-    void serializeOutput() throws Exception {
-        String file = "src/txtFiles/output.txt";
-        input = new FileReader(file);
-        List<Person> people = InputParser.readFromInputStream(input);
-        PersonDatabase personDatabase = new PersonDatabase(people);
-        outputStream = new FileOutputStream(file + ".bit");
-        personDataOutputStream = new DataOutputStream(outputStream);
-        personDatabase.serialize(personDataOutputStream);
 
-    }
-
-
-    @Test
-    void deserializeOutput() throws Exception {
-        String file = "src/txtFiles/output.txt.bit";
-        FileInputStream fin = new FileInputStream(file);
-        DataInputStream dataInputStream = new DataInputStream(fin);
-        PersonDatabase actual = PersonDatabase.deserialize(dataInputStream);
-        actual.getPeople().stream().forEach(e->System.out.println(e.toString()));
-        Assertions.assertEquals(actual.getPeople().get(0).toString(),"Omar Omarowiski 23/10/1991;");
-        Assertions.assertEquals(actual.getPeople().get(2).toString(),"Uno Omarowiski 20/10/1991;");
-        Assertions.assertEquals(actual.getPeople().size(), 6);
-    }
 
     @Test
     void sortedBySurnameFirstNameAndBirthdate() throws Exception {
@@ -89,7 +65,6 @@ class PersonDatabaseTest {
         personDatabase.sortedByBirthdate().forEach(
                 e -> formatter.format(e.getBirthdate()));
         Assertions.assertEquals("30/10/1991", formatter.format(personDatabase.sortedByBirthdate().get(5).getBirthdate()));
-
 
     }
 }

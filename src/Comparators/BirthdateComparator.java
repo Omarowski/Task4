@@ -1,4 +1,6 @@
-package PersonFields;
+package Comparators;
+
+import PersonFields.Person;
 
 import java.util.Comparator;
 

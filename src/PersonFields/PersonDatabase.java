@@ -1,6 +1,8 @@
 package PersonFields;
 
 import Assignment08_Classes.Assignment08Exception;
+import Comparators.BirthdateComparator;
+import Comparators.FirstNameComparator;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -25,8 +27,6 @@ public final class PersonDatabase {
     // assignment 8 - factory method based on deserialization
     public static PersonDatabase deserialize(DataInputStream input) throws Exception {
         String value = input.readLine();
-
-
         return new PersonDatabase(deserializeContent(String.valueOf(value)));
     }
 
@@ -86,7 +86,7 @@ public final class PersonDatabase {
 
     public List<Person> sortedByFirstName() {
         Collections.sort(people, firstNameComparator);
-        return people; // external rule for ordering (based on Comparator --- PersonFields.FirstNameComparator)
+        return people; // external rule for ordering (based on Comparator --- Comparators.FirstNameComparator)
     }
 
     public List<Person> sortedByBirthdate() {
